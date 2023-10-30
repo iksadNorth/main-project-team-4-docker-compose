@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   nginx:
-    image: nginx-reuse:1.0.0
+    image: iksadnorth/nginx-reuse:1.0.0
     container_name: nginx_app
     restart: always
     depends_on:
@@ -12,9 +12,13 @@ services:
       - 443:443
     networks:
       - reuse-bridge
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/logs:/var/log/letsencrypt
+      - ./certbot/data:/var/www/certbot
 
   was:
-    image: was-reuse:1.0.0
+    image: iksadnorth/was-reuse:1.0.0
     container_name: was
     restart: always
     ports:
