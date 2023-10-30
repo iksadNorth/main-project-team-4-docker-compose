@@ -1,0 +1,47 @@
+version: "3.1"
+
+services:
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx_app
+#    restart: always
+#    ports:
+#      - 80:80
+#      - 443:443
+#    networks:
+#      - reuse-bridge
+
+  was:
+    image: was-reuse:1.0.0
+    container_name: was
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - reuse-bridge
+    environment:
+      - PROFILE=${PROFILE}
+      - MYSQL_DATABASE_URL=${MYSQL_DATABASE_URL}
+      - MYSQL_DATABASE_USERNAME=${MYSQL_DATABASE_USERNAME}
+      - MYSQL_DATABASE_PASSWORD=${MYSQL_DATABASE_PASSWORD}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - S3_ACCESS_KEY=${S3_ACCESS_KEY}
+      - S3_SECRET_KEY=${S3_SECRET_KEY}
+      - S3_REGION_STATIC=${S3_REGION_STATIC}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - OAUTH2_KAKAO_REDIRECT_URL=${OAUTH2_KAKAO_REDIRECT_URL}
+
+  redis:
+    image: redis:latest
+    container_name: redis_db
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - reuse-bridge
+
+networks:
+  reuse-bridge:
+    driver: bridge
