@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   nginx:
-    image: iksadnorth/nginx-reuse:latest
+    image: iksadnorth/nginx-reuse:stable
     container_name: nginx_app
     restart: always
     depends_on:
@@ -18,7 +18,7 @@ services:
       - ./certbot/data:/var/www/certbot
 
   was:
-    image: iksadnorth/was-reuse:latest
+    image: iksadnorth/was-reuse:stable
     container_name: was
     restart: always
     ports:
