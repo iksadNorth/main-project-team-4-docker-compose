@@ -10,4 +10,4 @@ target_dir="$dir_archive/api.re-use.store"
 mkdir -p "$target_dir"
 
 # 원본 디렉터리의 모든 파일을 대상 디렉터리로 이동합니다.
-mv "$source_dir"/* "$target_dir"
+sudo mv "$source_dir"/* "$target_dir"
