@@ -16,6 +16,7 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
       - ./certbot/data:/var/www/certbot
+      - ./log/nginx:/var/log/nginx
 
   was:
     image: iksadnorth/was-reuse:latest
@@ -31,6 +32,8 @@ services:
       - REDIS_PORT=6379
     depends_on:
       - redis
+    volumes:
+      - ./log/was:/app/log
 
   redis:
     image: redis:latest
@@ -40,6 +43,21 @@ services:
       - 6379:6379
     networks:
       - reuse-bridge
+    volumes:
+      - ./log/redis:/var/log/redis
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.6.2
+    container_name: filebeat
+    user: root
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - ./for-filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./log:/log
+    depends_on:
+      - was
+      - nginx
+      - redis
 
 networks:
   reuse-bridge:

@@ -1,0 +1,8 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /log/*/*.log
+
+output.logstash:
+  hosts: ["logstash.temp3-iksadnorth.kro.kr:5000"]
