@@ -2,7 +2,7 @@ filebeat.inputs:
   - type: log
     enabled: true
     paths:
-      - /log/*/*.log
+      - /var/log/*/*.log
 
 output.logstash:
   hosts: ["logstash.temp3-iksadnorth.kro.kr:5000"]
